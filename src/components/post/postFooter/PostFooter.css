@@ -1,0 +1,11 @@
+.footer-container {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.main-span {
+    padding: 0 10px;
+}
