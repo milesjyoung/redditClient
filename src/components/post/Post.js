@@ -5,10 +5,10 @@ import PostFooter from './postFooter/PostFooter'
 
 
 const Post = ({post}) => {
-    const {title, subreddit_name, author, created_utc, thumbnail, commentCount} = post
+    const {title, subreddit_name, author, created_utc, thumbnail, commentCount, image, ups} = post
     return (
         <div className='post-container'>
-            <PostSidebar />
+            <PostSidebar ups={ups} />
             <div className='main-area-column'>
                 <PostHeader 
                 subreddit_name={subreddit_name} 
@@ -16,7 +16,7 @@ const Post = ({post}) => {
                 author={author}
                 />
                 <h3 className='title'>{title}</h3>
-                {thumbnail.includes('jpg') && <img src={thumbnail} alt="post" className="post-image"/>}
+                {image.includes('jpg') && <img src={image} alt="post" className="post-image"/>}
                 <div className='post-footer-div'>
                     <PostFooter commentCount={commentCount} />
                 </div>

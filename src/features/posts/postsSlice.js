@@ -1,16 +1,19 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-const url = 'https://www.reddit.com/r/popular.json'
+const BASE_URL = 'https://www.reddit.com'
 
 
 const initialState = {
     posts: [],
+    subredditURL: '/r/Home.json',
+    searchTerm: '',
     isLoading: true,
     isError: false
 }
 
-export const loadPosts = createAsyncThunk('posts/loadPosts', async () => {
-    return fetch(url)
+export const loadPosts = createAsyncThunk('posts/loadPosts', async (arg, {getState}) => {
+    const {subredditURL} = getState().posts
+    return fetch(BASE_URL+subredditURL)
         .then(response => response.json())
         .catch(e => console.log(e))
 })
@@ -22,6 +25,12 @@ const postsSlice = createSlice({
     reducers: {
         setPosts: (state, action) => {
             state.posts = action.payload
+        },
+        setSearchTerm: (state, action) => {
+            state.searchTerm = action.payload
+        },
+        setsubredditURL: (state, action) => {
+            state.subredditURL = action.payload
         }
     },
     extraReducers: {
@@ -43,7 +52,8 @@ const postsSlice = createSlice({
                     created_utc: post.data.created_utc,
                     author: post.data.author,
                     permalink: `https://reddit.com${post.data.permalink.substring(0, post.data.permalink.length -1)}.json`,
-                    subreddit_name: post.data.subreddit_name_prefixed
+                    subreddit_name: post.data.subreddit_name_prefixed,
+                    image: post.data.url
 
                 }
             ))
@@ -58,7 +68,7 @@ const postsSlice = createSlice({
     }
 })
 
-export const {setPosts} = postsSlice.actions
+export const {setPosts, setSearchTerm, setsubredditURL} = postsSlice.actions
 
 
 export default postsSlice.reducer

@@ -3,7 +3,7 @@ import { loadPosts } from "../../features/posts/postsSlice"
 import { useEffect } from "react"
 import './PostsContainer.css'
 import Post from "../post/Post"
-import { loadSubreddits } from "../../features/subReddits/subRedditsSlice"
+
 
 
 const PostsContainer = () => {
@@ -12,7 +12,6 @@ const PostsContainer = () => {
 
     useEffect(() => {
         dispatch(loadPosts())
-        dispatch(loadSubreddits())
     }, [])
     
     if(!posts) {

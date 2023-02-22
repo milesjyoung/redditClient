@@ -11,10 +11,6 @@ const PostHeader = ({subreddit_name, author, created_utc}) => {
 
     return (
         <div className="post-header-container">
-            <div className='subreddit-container'>
-            <FaAdn size={20} />
-                <h5 className='subreddit-name'>{subreddit_name}</h5>
-            </div>
             <div className='author-container'>
                 <h5 className='author-name-time'>posted by {author} {getRelativeTime(created_utc)} hours ago</h5>
             </div>

@@ -1,9 +1,12 @@
 import './Banner.css'
 import { FaReddit } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 
 
 
 const Banner = () => {
+
+    const searchTerm = useSelector(state => state.posts)
 
     return (
         <nav>
