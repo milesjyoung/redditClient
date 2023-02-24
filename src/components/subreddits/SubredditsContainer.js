@@ -8,11 +8,19 @@ import { useEffect } from 'react'
 const SubredditsContainer = () => {
 
     const dispatch = useDispatch()
-    const {subreddits} = useSelector(state => state.subreddits)
+    const {subreddits, selectedSubredditURL} = useSelector(state => state.subreddits)
 
     useEffect(() => {
         dispatch(loadSubreddits())
     }, [])
+
+    const setSelectedClass = (url) => {
+        let className = 'subreddit-item-container'
+        if(url === selectedSubredditURL) {
+            className += ' subreddit-selected'
+        }
+        return className
+    }
 
 
     const handleSubredditClick = (subredditURL) => {
@@ -30,7 +38,7 @@ const SubredditsContainer = () => {
                         key={subreddit.id}
                         className='subreddit-item'
                     >
-                    <div className='subreddit-item-container' onClick={() => handleSubredditClick(subreddit.url)}><img
+                    <div className={setSelectedClass(subreddit.url)} onClick={() => handleSubredditClick(subreddit.url)}><img
                 src={
                   subreddit.icon_img ||
                   `https://api.adorable.io/avatars/25/${subreddit.display_name}`

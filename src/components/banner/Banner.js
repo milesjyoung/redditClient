@@ -1,12 +1,12 @@
 import './Banner.css'
 import { FaReddit } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { setSearchTerm } from '../../features/posts/postsSlice';
 
 
 const Banner = () => {
-
-    const searchTerm = useSelector(state => state.posts)
+    const dispatch = useDispatch()
+    const {searchTerm} = useSelector(state => state.posts)
 
     return (
         <nav>
@@ -25,6 +25,8 @@ const Banner = () => {
                     autoComplete='off'
                     inputMode='search'
                     placeholder='Enter Post title or substring'
+                    value={searchTerm}
+                    onChange={(e) => dispatch(setSearchTerm(e.target.value))}
                     type='search'
                  />
             </div>

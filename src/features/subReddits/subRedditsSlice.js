@@ -4,7 +4,7 @@ const url = 'https://www.reddit.com/subreddits.json'
 
 const initialState = {
     subreddits: [],
-    selectedSubredditURL: 'r/Home/',
+    selectedSubredditURL: '/r/Home/',
     isLoading: true,
     isError: false
 }

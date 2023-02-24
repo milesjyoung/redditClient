@@ -8,7 +8,7 @@ import Post from "../post/Post"
 
 const PostsContainer = () => {
     const dispatch = useDispatch()
-    const {posts, isLoading, isError} = useSelector(state => state.posts)
+    const {posts, isLoading, isError, searchTerm} = useSelector(state => state.posts)
 
     useEffect(() => {
         dispatch(loadPosts())
@@ -22,7 +22,7 @@ const PostsContainer = () => {
 
     return (
         <div className="posts-container">
-            {posts.map((post) => (
+            {posts.filter(post => post.title.includes(searchTerm)).map((post) => (
                 <Post
                     key={post.id}
                     post={post}

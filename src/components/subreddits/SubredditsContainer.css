@@ -30,6 +30,10 @@
     cursor: pointer;
 }
 
+.subreddit-selected {
+    background-color: #DADDE1
+}
+
 .subreddit-icon {
     height: 25px;
     width: 25px;
