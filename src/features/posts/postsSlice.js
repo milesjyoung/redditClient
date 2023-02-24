@@ -18,6 +18,12 @@ export const loadPosts = createAsyncThunk('posts/loadPosts', async (arg, {getSta
         .catch(e => console.log(e))
 })
 
+export const getPostComments = createAsyncThunk('posts/getPostComments', async (permalink) => {
+     return fetch(permalink)
+        .then(response => response.json())
+        .catch(e => console.log(e))
+})
+
 
 const postsSlice = createSlice({
     name: 'posts',
@@ -31,6 +37,10 @@ const postsSlice = createSlice({
         },
         setsubredditURL: (state, action) => {
             state.subredditURL = action.payload
+        },
+        setPostCommentsVisibility: (state, action) => {
+            const postToUpdate = state.posts.find(post => post.id===action.payload)
+            postToUpdate.displayComments = !postToUpdate.displayComments
         }
     },
     extraReducers: {
@@ -53,7 +63,9 @@ const postsSlice = createSlice({
                     author: post.data.author,
                     permalink: `https://reddit.com${post.data.permalink.substring(0, post.data.permalink.length -1)}.json`,
                     subreddit_name: post.data.subreddit_name_prefixed,
-                    image: post.data.url
+                    image: post.data.url,
+                    displayComments: false,
+                    comments: null
 
                 }
             ))
@@ -64,11 +76,19 @@ const postsSlice = createSlice({
         [loadPosts.rejected]: (state) => {
             state.isLoading = false
             state.isError = true
+        },
+        [getPostComments.pending]: (state) => {
+
+        },
+        [getPostComments.fulfilled]: (state, action) => {
+            const cleanedResponse = action.payload.data.children
+            console.log(cleanedResponse)
+            // state.posts.find(post => post.id === action.payload)
         }
     }
 })
 
-export const {setPosts, setSearchTerm, setsubredditURL} = postsSlice.actions
+export const {setPosts, setSearchTerm, setsubredditURL, setPostCommentsVisibility} = postsSlice.actions
 
 
 export default postsSlice.reducer

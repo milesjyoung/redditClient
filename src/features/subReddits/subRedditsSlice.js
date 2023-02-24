@@ -4,6 +4,7 @@ const url = 'https://www.reddit.com/subreddits.json'
 
 const initialState = {
     subreddits: [],
+    selectedSubredditURL: 'r/Home/',
     isLoading: true,
     isError: false
 }
@@ -21,6 +22,9 @@ const subredditsSlice = createSlice({
         setSubreddits: (state, action) => {
             state.isLoading = false
             state.subreddits = action.payload
+        },
+        setSelectedSubredditURL: (state, action) => {
+            state.selectedSubredditURL = action.payload
         }
     },
     extraReducers: {
@@ -41,6 +45,6 @@ const subredditsSlice = createSlice({
     }   
 })
 
-export const {setSubreddits} = subredditsSlice.actions
+export const {setSubreddits, setSelectedSubredditURL} = subredditsSlice.actions
 
 export default subredditsSlice.reducer

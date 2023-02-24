@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import './SubredditsContainer.css'
-import { loadSubreddits } from '../../features/subReddits/subRedditsSlice'
+import { loadSubreddits, setSelectedSubredditURL } from '../../features/subReddits/subRedditsSlice'
 import { setsubredditURL, loadPosts } from '../../features/posts/postsSlice'
 import { useEffect } from 'react'
 
@@ -15,9 +15,10 @@ const SubredditsContainer = () => {
     }, [])
 
 
-    const handleSubredditClick = (subredditTitle) => {
-        const urlCleaned = subredditTitle.substring(0, subredditTitle.length - 1) + '.json'
+    const handleSubredditClick = (subredditURL) => {
+        const urlCleaned = subredditURL.substring(0, subredditURL.length - 1) + '.json'
         dispatch(setsubredditURL(urlCleaned))
+        dispatch(setSelectedSubredditURL(subredditURL))
         dispatch(loadPosts())
     }
 

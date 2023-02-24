@@ -4,6 +4,8 @@
     /* background-color: #FFFFFF; */
     overflow: hidden;
     overflow-x: hidden;
+    position: sticky;
+    top: 80px;
 }
 
 .subreddits-main-container:hover {
