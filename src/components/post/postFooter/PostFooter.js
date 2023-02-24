@@ -10,12 +10,12 @@ const PostFooter = ({commentCount, id, permalink}) => {
 
     const handleCommentsClick = (postId, permalink) => {
         dispatch(setPostCommentsVisibility(postId))
-        dispatch(getPostComments(permalink))
+        dispatch(getPostComments({permalink, id: postId}))
     }
 
     return (
         <div className='footer-container'>
-            <span className='main-span'><FaRegCommentAlt onClick={() => handleCommentsClick(id, permalink)} /> {commentCount} Comments</span>
+            <span className='main-span'><FaRegCommentAlt className='comment-icon' onClick={() => handleCommentsClick(id, permalink)} /> {commentCount} Comments</span>
         </div>
     )
 }

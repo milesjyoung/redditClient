@@ -8,4 +8,9 @@
 
 .main-span {
     padding: 0 10px;
+    color: #898989;
+}
+
+.comment-icon {
+    cursor: pointer;
 }

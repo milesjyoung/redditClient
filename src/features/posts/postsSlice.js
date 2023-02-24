@@ -18,7 +18,7 @@ export const loadPosts = createAsyncThunk('posts/loadPosts', async (arg, {getSta
         .catch(e => console.log(e))
 })
 
-export const getPostComments = createAsyncThunk('posts/getPostComments', async (permalink) => {
+export const getPostComments = createAsyncThunk('posts/getPostComments', async ({permalink}) => {
      return fetch(permalink)
         .then(response => response.json())
         .catch(e => console.log(e))
@@ -61,11 +61,13 @@ const postsSlice = createSlice({
                     ups: post.data.ups,
                     created_utc: post.data.created_utc,
                     author: post.data.author,
-                    permalink: `https://reddit.com${post.data.permalink.substring(0, post.data.permalink.length -1)}.json`,
+                    permalink: `${BASE_URL}${post.data.permalink.substring(0, post.data.permalink.length -1)}.json`,
                     subreddit_name: post.data.subreddit_name_prefixed,
                     image: post.data.url,
                     displayComments: false,
-                    comments: null
+                    comments: null,
+                    commentsLoading: false,
+                    commentsError: false
 
                 }
             ))
@@ -77,13 +79,26 @@ const postsSlice = createSlice({
             state.isLoading = false
             state.isError = true
         },
-        [getPostComments.pending]: (state) => {
-
+        [getPostComments.pending]: (state, action) => {
+            const {id} = action.meta.arg
+            const post = state.posts.find(post => post.id === id)
+            post.commentsLoading = true
+            post.commentsError = false
         },
         [getPostComments.fulfilled]: (state, action) => {
-            const cleanedResponse = action.payload.data.children
+            const {id} = action.meta.arg
+            const cleanedResponse = action.payload[1].data.children.map(object => object.data)
             console.log(cleanedResponse)
-            // state.posts.find(post => post.id === action.payload)
+            const post = state.posts.find(post => post.id === id)
+            post.comments = cleanedResponse
+            post.commentsLoading = false
+            post.commentsError = false
+        },
+        [getPostComments.rejected]: (state, action) => {
+            const {id} = action.meta.arg
+            const post = state.posts.find(post => post.id === id)
+            post.commentsLoading = false
+            post.commentsError = true
         }
     }
 })
