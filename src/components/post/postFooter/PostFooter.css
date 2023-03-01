@@ -9,6 +9,7 @@
 .main-span {
     padding: 0 10px;
     color: #898989;
+    cursor: pointer;
 }
 
 .comment-icon {

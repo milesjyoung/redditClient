@@ -8,7 +8,8 @@ const initialState = {
     subredditURL: '/r/Home.json',
     searchTerm: '',
     isLoading: true,
-    isError: false
+    isError: false,
+    modalOpen: false
 }
 
 export const loadPosts = createAsyncThunk('posts/loadPosts', async (arg, {getState}) => {
@@ -41,6 +42,9 @@ const postsSlice = createSlice({
         setPostCommentsVisibility: (state, action) => {
             const postToUpdate = state.posts.find(post => post.id===action.payload)
             postToUpdate.displayComments = !postToUpdate.displayComments
+        },
+        toggleModalState: (state, action) => {
+            state.modalOpen = action.payload
         }
     },
     extraReducers: {
@@ -103,7 +107,13 @@ const postsSlice = createSlice({
     }
 })
 
-export const {setPosts, setSearchTerm, setsubredditURL, setPostCommentsVisibility} = postsSlice.actions
+export const {
+    setPosts, 
+    setSearchTerm, 
+    setsubredditURL, 
+    setPostCommentsVisibility,
+    toggleModalState
+} = postsSlice.actions
 
 
 export default postsSlice.reducer

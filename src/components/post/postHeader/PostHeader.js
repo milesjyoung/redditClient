@@ -12,7 +12,7 @@ const PostHeader = ({subreddit_name, author, created_utc}) => {
     return (
         <div className="post-header-container">
             <div className='author-container'>
-                <h5 className='author-name-time'>posted by {author} {getRelativeTime(created_utc)} hours ago</h5>
+                <h5 className='author-name-time'>posted by {author} {getRelativeTime(created_utc)}</h5>
             </div>
         </div>
     )
