@@ -1,3 +1,4 @@
+import Comment from './comment/Comment'
 import './CommentsSection.css'
 
 const CommentsSection = ({comments, commentsLoading}) => {
@@ -11,7 +12,7 @@ const CommentsSection = ({comments, commentsLoading}) => {
     return (
         <div className='comments-section-container'>
             {comments.map(comment => (
-                <div key={comment.id}>{comment.body}</div>
+                <Comment key={comment.id} comment={comment} />
             ))}
         </div>
     )

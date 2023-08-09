@@ -34,7 +34,19 @@
     margin: 3px 5px;
 }
 
-.main-modal-content img {
+/* this worked before */
+/* .main-modal-content img {
     max-width: 100%;
     height: unset;
+} */
+.post-image {
+    max-width: 100%;
+    height: unset;
+}
+
+hr {
+    width: 90%;
+    background-color: #F2F3F5;
+    color: #F2F3F5;
+    margin: 10px auto;
 }

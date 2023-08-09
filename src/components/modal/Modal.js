@@ -27,6 +27,7 @@ const Modal = ({post}) => {
                     <PostHeader subreddit_name={post.subreddit_name} author={post.author} created_utc={post.created_utc} />
                     <h2>{post.title}</h2>
                     {post.image.includes('jpg') && <img src={post.image} alt="post" className="post-image"/>}
+                    <hr></hr>
                     <CommentsSection comments={post.comments} commentsLoading={post.commentsLoading} />
                 </div>
             </div>
