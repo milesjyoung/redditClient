@@ -1,29 +1,39 @@
-import './Comment.css'
-import Avatar from '../avatar/Avatar'
-import moment from 'moment'
+import "./Comment.css";
+import Avatar from "../avatar/Avatar";
+import moment from "moment";
 
-const Comment = ({comment}) => {
+const Comment = ({ comment }) => {
+  const getRelativeTime = (utcTime) => {
+    return moment.unix(utcTime).fromNow();
+  };
 
-    const getRelativeTime = (utcTime) => {
-        return moment.unix(utcTime).fromNow()
-    }
-    
-    return (
-        <div className='comment-container'>
-            <div className='comment-header'>
-                {/* <Avatar className='avatar' author={comment.author} /> */}
-                <h5 className='author-name-time'>{comment.author} &#x2022; {getRelativeTime(comment.created_utc)}</h5>
-            </div>
-            {/* no not really */}
-            <svg>
-                <line x1="2%" y1="0" x2="2%" y2="100%" stroke="black" />
-            </svg>
+  const { author, body, created_utc, replies } = comment;
+  const timestamp = getRelativeTime(created_utc);
 
-           
+  return (
+    <div className="comments__root-comment">
+      <span className="comments__header">
+        <h2 className="comments__h2">{author}</h2>·{" "}
+        <span className="comments__timestamp">{timestamp}</span>
+      </span>
+      <div className="comments__main-section">
+        <div className="comments__line"></div>
+        <div className="comments__body">
+          <div className="comments__body-text">
+            <p>{body}</p>
+          </div>
+          {/* <div className="comments__body-child"></div> */}
+          {replies?.data?.children &&
+            replies.data.children.map((commentWrapper) => (
+              <Comment
+                key={commentWrapper.data}
+                comment={commentWrapper.data}
+              />
+            ))}
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
-
-
-export default Comment
+export default Comment;

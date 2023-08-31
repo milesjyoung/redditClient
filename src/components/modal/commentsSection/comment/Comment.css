@@ -1,5 +1,49 @@
 .comment-container {
-    background-color: #F2F3F5;
-    width: 95%;
-    margin: 10px auto;
+  background-color: #f2f3f5;
+  width: 95%;
+  margin: 10px;
+}
+
+.comments__root-comment {
+  /* min-height: 20vh; */
+  width: 95%;
+  margin: 10px;
+  /* border: 1px solid black; */
+  position: relative;
+}
+
+.comments__header {
+  margin: 8px;
+  /* position: relative; */
+}
+
+.comments__h2 {
+  display: inline-block;
+  font-size: 0.95rem;
+}
+
+.comments__timestamp {
+  font-size: 0.75rem;
+}
+
+.comments__main-section {
+  /* position: relative; */
+  height: 85%;
+  width: 98%;
+  margin: 1px auto;
+  /* border: 1px black solid; */
+  display: flex;
+  justify-content: space-between;
+}
+
+.comments__line {
+  /* min-height: 15vh; */
+  width: 0.05rem;
+  background-color: #c8c9ca;
+}
+
+.comments__body {
+  /* border: 1px black solid; */
+  height: 75%;
+  width: 99%;
 }
