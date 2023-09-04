@@ -1,6 +1,7 @@
 import "./Comment.css";
-import Avatar from "../avatar/Avatar";
+// import Avatar from "../avatar/Avatar";
 import moment from "moment";
+import CommentAvatar from "./commentAvatar/CommentAvatar";
 
 const Comment = ({ comment }) => {
   const getRelativeTime = (utcTime) => {
@@ -12,10 +13,18 @@ const Comment = ({ comment }) => {
 
   return (
     <div className="comments__root-comment">
-      <span className="comments__header">
-        <h2 className="comments__h2">{author}</h2>·{" "}
-        <span className="comments__timestamp">{timestamp}</span>
-      </span>
+      <div className="comments__header">
+        <div className="comments__author-icon-container">
+          <div className="comments__author-icon">
+            <CommentAvatar
+              className="comments__comments-avatar"
+              author={author}
+            />
+          </div>
+        </div>
+        <h2 className="comments__h2">{author}</h2>
+        <span className="comments__timestamp"> · {timestamp}</span>
+      </div>
       <div className="comments__main-section">
         <div className="comments__line"></div>
         <div className="comments__body">
@@ -24,12 +33,17 @@ const Comment = ({ comment }) => {
           </div>
           {/* <div className="comments__body-child"></div> */}
           {replies?.data?.children &&
-            replies.data.children.map((commentWrapper) => (
-              <Comment
-                key={commentWrapper.data}
-                comment={commentWrapper.data}
-              />
-            ))}
+            replies.data.children.map((commentWrapper) => {
+              if (!commentWrapper.data || commentWrapper.kind === "more") {
+                return null;
+              }
+              return (
+                <Comment
+                  key={commentWrapper.data}
+                  comment={commentWrapper.data}
+                />
+              );
+            })}
         </div>
       </div>
     </div>
